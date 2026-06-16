@@ -1,14 +1,18 @@
 services:
   development-database:
     image: "postgres:16-alpine"
-    env_file:
-      - "../.env.development"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: development
     ports:
       - "5432:5432"
 
-  test-database:
+  tests-database:
     image: "postgres:16-alpine"
-    env_file:
-      - "../.env.test"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: tests
     ports:
       - "5433:5432"
