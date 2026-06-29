@@ -1,3 +1,4 @@
+name: "prato-feito"
 services:
   development-database:
     image: "postgres:16-alpine"

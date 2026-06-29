@@ -7,14 +7,15 @@
   "scripts": {
     "ci": "bun install --frozen-lockfile && bun run tsc --noEmit && bun build --target=bun --outdir=dist src/server.ts",
     "start": "NODE_ENV=production bun dist/server.js",
-    "dev": "NODE_ENV=development bun --watch src/server.ts",
-    "test:dev": "NODE_ENV=test bun test --watch",
+    "dev": "NODE_ENV=development bun docker:up && bun wait-for-postgres && bun migration:run && bun --watch src/server.ts",
+    "test": "NODE_ENV=test bun test --watch",
     "docker:up": "docker compose -f infra/compose.yaml up -d",
     "docker:down": "docker compose -f infra/compose.yaml down -v",
     "check": "bunx biome check ./src ./tests ./infra",
     "check:fix": "bunx biome check --write ./src ./tests ./infra",
     "migration:create": "node-pg-migrate -m infra/migrations create",
-    "migration:run": "node-pg-migrate -m infra/migrations --env-path .env.development up"
+    "migration:run": "node-pg-migrate -m infra/migrations --env-path .env.development up",
+    "wait-for-postgres": "NODE_ENV=development bun infra/scripts/wait-for-postgres.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.5",
