@@ -8,7 +8,7 @@
     "ci": "bun install --frozen-lockfile && bun run tsc --noEmit && bun build --target=bun --outdir=dist src/server.ts",
     "start": "NODE_ENV=production bun dist/server.js",
     "dev": "NODE_ENV=development bun docker:up && bun wait-for-postgres && bun migration:run && bun --watch src/server.ts",
-    "test": "NODE_ENV=test bun test --watch",
+    "test": "NODE_ENV=test bun docker:up && bun wait-for-postgres && bun migration:run && bun test --watch --max-concurrency=1",
     "docker:up": "docker compose -f infra/compose.yaml up -d",
     "docker:down": "docker compose -f infra/compose.yaml down -v",
     "check": "bunx biome check ./src ./tests ./infra",

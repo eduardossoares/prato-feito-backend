@@ -31,5 +31,7 @@ describe("POST /api/v1/migrations", () => {
     expect(pendingMigrationsResponse.statusCode).toBe(200);
     expect(parsedpendingMigrationsBody.migrations).toBeArray();
     expect(parsedpendingMigrationsBody.migrations.length).toBe(0);
+
+    await testApp.close();
   });
 });

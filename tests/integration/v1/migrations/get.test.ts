@@ -18,5 +18,7 @@ describe("GET /api/v1/migrations", async () => {
     expect(response.statusCode).toBe(200);
     expect(parsedBody.migrations).toBeArray();
     expect(parsedBody.migrations.length).toBeGreaterThan(0);
+
+    await testApp.close();
   });
 });
