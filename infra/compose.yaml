@@ -1,19 +1,19 @@
-name: "prato-feito"
+name: prato-feito
 services:
   development-database:
-    image: "postgres:16-alpine"
+    image: postgres:16-alpine
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
       POSTGRES_DB: development
     ports:
-      - "5432:5432"
+      - 5432:5432
 
   tests-database:
-    image: "postgres:16-alpine"
+    image: postgres:16-alpine
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
       POSTGRES_DB: tests
     ports:
-      - "5433:5432"
+      - 5433:5432

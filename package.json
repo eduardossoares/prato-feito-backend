@@ -1,5 +1,6 @@
 {
   "name": "prato-feito-backend",
+  "packageManager": "bun@1.3.10",
   "description": "API do PratoFeito, responsável por autenticação, publicações, comentários, reputação, votos e curadoria comunitária de conteúdos gastronômicos.",
   "module": "src/server.ts",
   "type": "module",
@@ -8,7 +9,7 @@
     "ci": "bun install --frozen-lockfile && bun run tsc --noEmit && bun build --target=bun --outdir=dist src/server.ts",
     "start": "NODE_ENV=production bun dist/server.js",
     "dev": "NODE_ENV=development bun docker:up && bun wait-for-postgres && bun migration:run && bun --watch src/server.ts",
-    "test": "NODE_ENV=test bun test --watch",
+    "test": "NODE_ENV=test bun docker:up && bun wait-for-postgres && bun migration:run && bun test --max-concurrency=1",
     "docker:up": "docker compose -f infra/compose.yaml up -d",
     "docker:down": "docker compose -f infra/compose.yaml down -v",
     "check": "bunx biome check ./src ./tests ./infra",
