@@ -9,11 +9,11 @@ services:
     ports:
       - 5432:5432
 
-  tests-database:
+  test-database:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: tests
+      POSTGRES_DB: test
     ports:
       - 5433:5432
