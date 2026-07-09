@@ -16,7 +16,8 @@
     "biome:write": "bunx biome check ./src ./tests ./infra --write --unsafe",
     "migration:create": "node-pg-migrate -m infra/migrations create",
     "migration:run": "node-pg-migrate -m infra/migrations --env-path .env.development up",
-    "wait-for-postgres": "NODE_ENV=development bun infra/scripts/wait-for-postgres.ts"
+    "wait-for-postgres": "NODE_ENV=development bun infra/scripts/wait-for-postgres.ts",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.5",
@@ -25,6 +26,7 @@
     "@types/bun": "1.3.10",
     "@types/node": "25.3.5",
     "@types/pg": "8.20.0",
+    "husky": "^9.1.7",
     "node-pg-migrate": "8.0.4"
   },
   "peerDependencies": {
