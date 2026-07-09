@@ -1,12 +1,11 @@
-async function checkPostgres() {
-  const nodeEnvDatabase =
-    process.env.NODE_ENV === "test"
-      ? "tests"
-      : process.env.NODE_ENV === "development"
-        ? "development"
-        : undefined;
+const allowedNodeEnvs = ["test", "development"];
 
-  if (!nodeEnvDatabase) {
+async function checkPostgres() {
+  const choosedEnv = allowedNodeEnvs.find(
+    (env) => env === process.env.NODE_ENV,
+  );
+
+  if (!choosedEnv) {
     console.log("🔴 Ambiente inválido.");
     return;
   }
@@ -15,7 +14,7 @@ async function checkPostgres() {
     [
       "docker",
       "exec",
-      `prato-feito-${nodeEnvDatabase}-database-1`,
+      `prato-feito-${choosedEnv}-database-1`,
       "pg_isready",
       "--host",
       "localhost",
