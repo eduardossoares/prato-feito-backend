@@ -1,7 +1,7 @@
-import { pgDatabase } from "infra/db";
 import type { QueryResult } from "pg";
+import { pgDatabase } from "../../../infra/db";
 
-export class StatusService {
+export default class StatusService {
   pgDatabase = new pgDatabase();
 
   async getStatus() {

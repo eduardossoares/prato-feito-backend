@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
-import { pgDatabase } from "infra/db";
 import type { QueryResult } from "pg";
-import { buildApp } from "src/app";
+import { pgDatabase } from "../../../../infra/db";
+import { buildApp } from "../../../../src/app";
 
 describe("GET /api/v1/status", () => {
   test("should return server status", async () => {

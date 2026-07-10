@@ -1,4 +1,4 @@
-import { pgDatabase } from "infra/db";
+import { pgDatabase } from "../../infra/db";
 
 export async function clearDatabase() {
   const database = new pgDatabase();
