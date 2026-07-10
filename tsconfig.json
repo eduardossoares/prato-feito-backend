@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     // Environment setup & latest features
     "types": ["bun"],
     "lib": ["ESNext"],
