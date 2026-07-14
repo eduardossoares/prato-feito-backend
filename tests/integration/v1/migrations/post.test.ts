@@ -5,33 +5,30 @@ import { clearDatabase } from "../../../utils/clear-database";
 beforeAll(clearDatabase);
 
 describe("POST /api/v1/migrations", () => {
-  test("should execute live run of migrations", async () => {
-    const testApp = buildApp();
+  const testApp = buildApp();
 
-    const executedMigrationsResponse = await testApp.inject({
+  test("should execute pending migrations", async () => {
+    const response = await testApp.inject({
       method: "POST",
       path: "/api/v1/migrations",
     });
 
-    const pendingMigrationsResponse = await testApp.inject({
+    const parsedBody = JSON.parse(response.body);
+
+    expect(response.statusCode).toBe(200);
+    expect(parsedBody.migrations).toBeArray();
+  });
+
+  test("should return pending migrations", async () => {
+    const response = await testApp.inject({
       method: "GET",
       path: "/api/v1/migrations",
     });
 
-    const parsedExecutedMigrationsBody = JSON.parse(
-      executedMigrationsResponse.body,
-    );
+    const parsedBody = JSON.parse(response.body);
 
-    const parsedpendingMigrationsBody = JSON.parse(
-      pendingMigrationsResponse.body,
-    );
-
-    expect(executedMigrationsResponse.statusCode).toBe(200);
-    expect(parsedExecutedMigrationsBody.migrations).toBeArray();
-    expect(pendingMigrationsResponse.statusCode).toBe(200);
-    expect(parsedpendingMigrationsBody.migrations).toBeArray();
-    expect(parsedpendingMigrationsBody.migrations.length).toBe(0);
-
-    await testApp.close();
+    expect(response.statusCode).toBe(200);
+    expect(parsedBody.migrations).toBeArray();
+    expect(parsedBody.migrations).toHaveLength(0);
   });
 });
