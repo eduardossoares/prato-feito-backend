@@ -5,7 +5,7 @@ import { clearDatabase } from "../../../utils/clear-database";
 beforeAll(clearDatabase);
 
 describe("GET /api/v1/migrations", async () => {
-  test("should execute and return dry run of migrations", async () => {
+  test("should return all migrations", async () => {
     const testApp = buildApp();
 
     const response = await testApp.inject({
