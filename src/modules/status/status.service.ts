@@ -5,33 +5,23 @@ export default class StatusService {
   pgDatabase = new pgDatabase();
 
   async getStatus() {
-    try {
-      const rawResult = await this.pgDatabase.query(`
+    const rawResult = await this.pgDatabase.query(`
         SHOW server_version;
         SHOW max_connections;
         SELECT count(*) AS opened_connections FROM pg_stat_activity WHERE application_name = 'prato-feito-backend';
       `);
 
-      const results = rawResult as unknown as QueryResult[];
+    const results = rawResult as unknown as QueryResult[];
 
-      return {
-        updated_at: new Date().toISOString(),
-        dependencies: {
-          database: {
-            version: results[0]?.rows[0].server_version,
-            max_connections: results[1]?.rows[0].max_connections,
-            opened_connections: results[2]?.rows[0].opened_connections,
-          },
+    return {
+      updated_at: new Date().toISOString(),
+      dependencies: {
+        database: {
+          version: results[0]?.rows[0].server_version,
+          max_connections: results[1]?.rows[0].max_connections,
+          opened_connections: results[2]?.rows[0].opened_connections,
         },
-      };
-    } catch (error) {
-      console.log("Erro no status.service:");
-      console.log(error);
-
-      return {
-        error: "Internal server errror",
-        code: 500,
-      };
-    }
+      },
+    };
   }
 }
