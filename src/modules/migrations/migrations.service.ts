@@ -1,26 +1,13 @@
-import { runner } from "node-pg-migrate";
-import { defaultMigrationOptions } from "./consts/migration-options.const";
+import { MigrationRunner } from "../../../infra/database/migration-runner";
 
 export class MigrationsService {
-  async dryRun() {
-    const pendingMigrations = await runner({
-      ...defaultMigrationOptions,
-      dryRun: true,
-    });
+  migrationRunner = new MigrationRunner();
 
-    return {
-      migrations: pendingMigrations,
-    };
+  async dryRun() {
+    return this.migrationRunner.findPendingMigrations();
   }
 
   async liveRun() {
-    const executedMigrations = await runner({
-      ...defaultMigrationOptions,
-      dryRun: false,
-    });
-
-    return {
-      migrations: executedMigrations,
-    };
+    return this.migrationRunner.runPendingMigrations();
   }
 }

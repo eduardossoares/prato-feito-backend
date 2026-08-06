@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, test } from "bun:test";
+import { clearDatabase } from "../../../../infra/database/clear-database";
 import { buildApp } from "../../../../src/app";
-import { clearDatabase } from "../../../utils/clear-database";
 
 beforeAll(clearDatabase);
 

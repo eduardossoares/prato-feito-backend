@@ -1,5 +1,5 @@
 import type { QueryResult } from "pg";
-import { pgDatabase } from "../../../infra/db";
+import { pgDatabase } from "../../../infra/database";
 
 export default class StatusService {
   pgDatabase = new pgDatabase();
