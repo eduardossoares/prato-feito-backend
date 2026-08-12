@@ -1,26 +1,17 @@
-import type { Query, QueryArrayResult, QueryResult } from "pg";
+import type { QueryResult } from "pg";
+import type { CreateUserType } from "./dtos/create-user-dto/create-user-request.dto";
+import { ConflictError } from "../../shared/http/errors";
 import { pgDatabase } from "../../../infra/database";
-import { ConflictError, ValidationError } from "../../shared/http/errors";
 import { normalizeField } from "./users.input";
-
-export type createUser = {
-  email: string;
-  username: string;
-  password: string;
-};
 
 export default class UsersService {
   pgDatabase = new pgDatabase();
 
-  async createUser(user: createUser) {
-    if (!user || !user.email || !user.username || !user.password) {
-      throw new ValidationError("Invalid payload on user creation");
-    }
-
+  async createUser(user: CreateUserType) {
     const normalizedEmail = normalizeField(user.email);
     const normalizedUsername = normalizeField(user.username);
 
-    await this.validateUserCredentials(normalizedEmail, normalizedUsername)
+    await this.validateUserCredentials(normalizedEmail, normalizedUsername);
 
     const rawResult = await this.pgDatabase.query({
       text: "INSERT INTO users (email, username, password) VALUES ($1, $2, $3) RETURNING email, username, created_at;",
@@ -39,16 +30,20 @@ export default class UsersService {
   }
 
   async validateUserCredentials(email: string, username: string) {
-    const isDuplicatedEmail = await this.findByEmail(email)
+    const isDuplicatedEmail = await this.findByEmail(email);
 
     if (isDuplicatedEmail) {
-      throw new ConflictError("The email address is already registered in the system")
+      throw new ConflictError(
+        "The email address is already registered in the system",
+      );
     }
 
-    const isDuplicatedUsername = await this.findByUsername(username)
+    const isDuplicatedUsername = await this.findByUsername(username);
 
     if (isDuplicatedUsername) {
-      throw new ConflictError("The username is already registered in the system")
+      throw new ConflictError(
+        "The username is already registered in the system",
+      );
     }
   }
 
