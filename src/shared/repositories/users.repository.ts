@@ -16,8 +16,7 @@ export default class UsersRepository implements UsersRepositoryInterface {
       values: [data.email, data.username, data.password],
     });
 
-    const result = rawResult as QueryResult;
-    return result.rows[0];
+    return rawResult as QueryResult;
   }
 
   async findByEmail(email: string) {
@@ -26,17 +25,15 @@ export default class UsersRepository implements UsersRepositoryInterface {
       values: [email],
     });
 
-    const result = rawResult as QueryResult;
-    return result.rows[0];
+    return rawResult as QueryResult;
   }
 
   async findByUsername(username: string) {
-    const rawResult = await this.pgDatabase.query({
+    const rawResult = (await this.pgDatabase.query({
       text: "SELECT (id, email, username) FROM users WHERE username = $1",
       values: [username],
-    });
+    })) as QueryResult;
 
-    const result = rawResult as QueryResult;
-    return result.rows[0];
+    return rawResult as QueryResult;
   }
 }
