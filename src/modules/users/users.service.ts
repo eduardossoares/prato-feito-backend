@@ -1,7 +1,7 @@
-import type { CreateUserRequestData } from "./dtos/create-user-dto/create-user-request.dto";
-import { ConflictError } from "../../shared/http/errors";
 import { pgDatabase } from "../../../infra/database";
+import { ConflictError } from "../../shared/http/errors";
 import UsersRepository from "../../shared/repositories/users.repository";
+import type { CreateUserRequestData } from "./dtos/create-user-dto/create-user-request.dto";
 
 export default class UsersService {
   pgDatabase = new pgDatabase();

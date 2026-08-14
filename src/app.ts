@@ -1,14 +1,14 @@
-import Fastify from "fastify";
-import v1Routes from "./routes/v1.routes";
-import { errorHandler, notFoundHandler } from "./shared/http/handlers";
-import {
-  validatorCompiler,
-  serializerCompiler,
-  type ZodTypeProvider,
-  jsonSchemaTransform,
-} from "fastify-type-provider-zod";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
+import Fastify from "fastify";
+import {
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+  type ZodTypeProvider,
+} from "fastify-type-provider-zod";
+import v1Routes from "./routes/v1.routes";
+import { errorHandler, notFoundHandler } from "./shared/http/handlers";
 
 export function buildApp() {
   const app = Fastify({

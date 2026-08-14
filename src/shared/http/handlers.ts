@@ -1,11 +1,11 @@
 import type { FastifyError, FastifyReply, FastifyRequest } from "fastify";
+import { hasZodFastifySchemaValidationErrors } from "fastify-type-provider-zod";
 import {
   InternalServerError,
   KnownError,
   NotFoundError,
   ValidationError,
 } from "./errors";
-import { hasZodFastifySchemaValidationErrors } from "fastify-type-provider-zod";
 
 export function errorHandler(
   error: FastifyError,

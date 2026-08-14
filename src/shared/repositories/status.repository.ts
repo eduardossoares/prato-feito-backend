@@ -14,7 +14,6 @@ export class statusRepository implements StatusRepositoryInterface {
       `,
     });
 
-    const results = rawResults as unknown as QueryResult[];
-    return results;
+    return rawResults as unknown as QueryResult[];
   }
 }
