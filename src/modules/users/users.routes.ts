@@ -20,6 +20,7 @@ export default function usersRoutes(app: FastifyInstance) {
           201: z
             .object({
               user: z.object({
+                id: z.string(),
                 email: z.string(),
                 username: z.string(),
                 created_at: z.date(),

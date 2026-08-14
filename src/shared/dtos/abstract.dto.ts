@@ -1,5 +1,5 @@
 import { ZodError, type ZodType, type z } from "zod";
-import { InternalServerError, ValidationError } from "../shared/http/errors";
+import { InternalServerError, ValidationError } from "../http/errors";
 
 export abstract class AbstractDTO<T extends ZodType> {
   protected readonly data: z.infer<T>;
