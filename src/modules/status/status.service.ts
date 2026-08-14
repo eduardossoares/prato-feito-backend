@@ -1,17 +1,10 @@
-import type { QueryResult } from "pg";
-import { pgDatabase } from "../../../infra/database";
+import { statusRepository } from "../../shared/repositories/status.repository";
 
 export default class StatusService {
-  pgDatabase = new pgDatabase();
+  private statusRepository = new statusRepository();
 
-  async getStatus() {
-    const rawResult = await this.pgDatabase.query(`
-        SHOW server_version;
-        SHOW max_connections;
-        SELECT count(*) AS opened_connections FROM pg_stat_activity WHERE application_name = 'prato-feito-backend';
-      `);
-
-    const results = rawResult as unknown as QueryResult[];
+  public async getStatus() {
+    const results = await this.statusRepository.getStatus();
 
     return {
       updated_at: new Date().toISOString(),

@@ -3,7 +3,7 @@ import z from "zod";
 import { StatusController } from "./status.controller";
 
 export default async function statusRoutes(app: FastifyInstance) {
-  const controller = new StatusController();
+  const statusController = new StatusController();
 
   app.get(
     "/",
@@ -27,6 +27,6 @@ export default async function statusRoutes(app: FastifyInstance) {
         },
       },
     },
-    controller.getStatus,
+    statusController.getStatus.bind(statusController),
   );
 }

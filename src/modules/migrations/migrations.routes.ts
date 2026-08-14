@@ -3,7 +3,7 @@ import z from "zod";
 import { MigrationsController } from "./migrations.controller";
 
 export default function migrationsRoutes(app: FastifyInstance) {
-  const controller = new MigrationsController();
+  const migrationsController = new MigrationsController();
 
   app.get(
     "/",
@@ -26,7 +26,7 @@ export default function migrationsRoutes(app: FastifyInstance) {
         },
       },
     },
-    controller.dryRun,
+    migrationsController.dryRun.bind(migrationsController),
   );
 
   app.post(
@@ -50,6 +50,6 @@ export default function migrationsRoutes(app: FastifyInstance) {
         },
       },
     },
-    controller.liveRun,
+    migrationsController.liveRun.bind(migrationsController),
   );
 }

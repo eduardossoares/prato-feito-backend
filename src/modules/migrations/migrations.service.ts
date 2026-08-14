@@ -1,13 +1,13 @@
 import { MigrationRunner } from "../../../infra/database/migration-runner";
 
 export class MigrationsService {
-  migrationRunner = new MigrationRunner();
+  private migrationRunner = new MigrationRunner();
 
-  async dryRun() {
+  public async dryRun() {
     return this.migrationRunner.findPendingMigrations();
   }
 
-  async liveRun() {
+  public async liveRun() {
     return this.migrationRunner.runPendingMigrations();
   }
 }
