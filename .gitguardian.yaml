@@ -1,4 +1,4 @@
 version: 2
 secret:
   ignored_paths:
-    - "tests/**"
+    - "tests/integration/**/*"
