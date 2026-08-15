@@ -1,7 +1,7 @@
 import z from "zod";
 import { AbstractDTO } from "../../../../shared/dtos/abstract.dto";
 
-const createUserSchema = z.object({
+const createUserRequestSchema = z.object({
   email: z
     .email()
     .max(254, "E-mail must constains at most 254 characters")
@@ -24,10 +24,12 @@ const createUserSchema = z.object({
     .trim(),
 });
 
-export type CreateUserRequestData = z.infer<typeof createUserSchema>;
+export type CreateUserRequestData = z.infer<typeof createUserRequestSchema>;
 
-export class CreateUserRequestDTO extends AbstractDTO<typeof createUserSchema> {
+export class CreateUserRequestDTO extends AbstractDTO<
+  typeof createUserRequestSchema
+> {
   protected schema() {
-    return createUserSchema;
+    return createUserRequestSchema;
   }
 }
