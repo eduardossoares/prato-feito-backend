@@ -18,7 +18,8 @@
     "biome:check": "bunx biome check ./src ./tests ./infra --error-on-warnings",
     "biome:write": "bunx biome check ./src ./tests ./infra --write --unsafe",
     "migrations:create": "node-pg-migrate -m infra/migrations create",
-    "migrations:run": "node-pg-migrate -m infra/migrations --env-path .env.development up",
+    "migrations:run:test": "node-pg-migrate -m infra/migrations --env-path .env.test up",
+    "migrations:run:dev": "node-pg-migrate -m infra/migrations --env-path .env.development up",
     "prepare": "husky"
   },
   "dependencies": {
