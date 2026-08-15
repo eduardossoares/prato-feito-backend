@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import StatusService from "./status.service";
 import { GetStatusResponseDTO } from "./dtos/get-status-response.dto";
+import StatusService from "./status.service";
 
 export class StatusController {
   private statusService = new StatusService();

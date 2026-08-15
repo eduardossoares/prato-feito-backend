@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { CreateUserRequestDTO } from "./dtos/create-user-dto/create-user-request.dto";
-import UsersService from "./users.service";
 import { CreateUserResponseDTO } from "./dtos/create-user-dto/create-user-response.dto";
+import UsersService from "./users.service";
 
 export default class UsersController {
   async createUser(req: FastifyRequest, res: FastifyReply) {
