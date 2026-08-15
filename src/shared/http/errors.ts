@@ -1,3 +1,5 @@
+import type { ZodIssue } from "zod";
+
 export abstract class KnownError extends Error {
   abstract readonly statusCode: number;
   abstract readonly code: string;
@@ -35,6 +37,12 @@ export class ConflictError extends KnownError {
 export class ValidationError extends KnownError {
   readonly statusCode = 422;
   readonly code = "VALIDATION_ERROR";
+  readonly issues: ZodIssue[];
+
+  public constructor(message: string, issues: ZodIssue[]) {
+    super(message);
+    this.issues = issues;
+  }
 }
 
 export class InternalServerError extends KnownError {

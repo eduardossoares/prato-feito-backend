@@ -1,10 +1,14 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { GetStatusResponseDTO } from "./dtos/get-status-response.dto";
 import StatusService from "./status.service";
 
 export class StatusController {
-  async getStatus(_req: FastifyRequest, res: FastifyReply) {
-    const service = new StatusService();
-    const data = await service.getStatus();
-    return res.send(data);
+  private statusService = new StatusService();
+
+  public async getStatus(_req: FastifyRequest, res: FastifyReply) {
+    const resultData = await this.statusService.getStatus();
+    const responseData = new GetStatusResponseDTO(resultData).getData();
+
+    return res.send(responseData);
   }
 }
