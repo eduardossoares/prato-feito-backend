@@ -14,7 +14,7 @@ describe("GET /api/v1/status", () => {
 
     expect(response.statusCode).toBe(200);
     expect(parsedBody.updated_at).toBeDefined();
-    expect(parsedBody.dependencies.database.version).toBe("16.14");
+    expect(parsedBody.dependencies.database.version).toBe("16.15");
     expect(parsedBody.dependencies.database.max_connections).toBe("100");
     expect(parsedBody.dependencies.database.opened_connections).toBe("1");
 
